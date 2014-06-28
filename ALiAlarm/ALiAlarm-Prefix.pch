@@ -1,0 +1,80 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
+
+//debug 输出
+//#define DEBUG_MODE
+#ifdef DEBUG_MODE
+#define NSLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#else
+#define NSLog( s, ... )
+#endif
+//常用宏定义
+#define GetDelegate (AppDelegate*)[[UIApplication sharedApplication] delegate]
+
+#define IPHONE5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640,1136), [[UIScreen mainScreen] currentMode].size) : NO)//判断是否为iphone5
+#define SCREEN_INCREMENT (IPHONE5?88:0)
+//判断 IOS 版本和尺寸
+#define IOS6  (([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)? YES:NO)
+#define IOS7  (([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)? YES:NO)
+#define VIEWFRAME_INCREMENT (IOS7?64:0)
+#define STATUS_INCREMENT (IOS7?20:0)
+#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+#define CONTENT_VIEW_HEIGHT ([UIScreen mainScreen].bounds.size.height)-64
+//RGB 颜色
+#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
+#define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
+#define UIColorFromRGB(rgbValue) UIColorFromRGBA(rgbValue,1.0)
+#define UIColorFromRGBA(rgbValue,alp) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00)>> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:alp]
+//sigleton
+#define SYSTEM_BUNDLE_VERSION @"CFBundleVersion"
+#define SYSTEM_SHORT_VERSION @"CFBundleShortVersionString"
+#define RINGS @"array.rings"
+#define HAVE_BEEN_USED @"bool.havebeenused" //是否是第一次使用该软件
+#define LASTVERSION @"string.lastversion" //上次使用的版本号，用来判断是否是第一次使用更新后的软件 与当前版本号比较
+#define USER_DEFAULT [NSUserDefaults standardUserDefaults]
+#define APP_DELEGATE (AppDelegate*)[[UIApplication sharedApplication] delegate]
+
+typedef NS_ENUM(NSUInteger, AlarmDays){
+    Mon = 1,
+    Tuse = 1<<1,
+    Wed = 1<<2,
+    Thur = 1<<3,
+    Fri = 1<<4,
+    Sat = 1<<5,
+    Sun = 1<<6,
+    WeekDay = Mon|Tuse|Wed|Thur|Fri,
+    Weekend = Sat|Sun,
+    EveryDay = Mon|Tuse|Wed|Thur|Fri|Sat|Sun
+};
+typedef NS_ENUM(NSUInteger, RingType){
+    RingTypeRing = 1,
+    RingTypeVibrate = 1<<1
+};
+
+typedef NS_ENUM(NSUInteger, AlarmType){
+    AlarmTypeDefault = 0,
+    AlarmTypeReminder,
+    AlarmTypeCountDown,
+    AlarmTypeAbnormal
+};
+
+#define HourToSec 3600
+#define DayToSec 24*3600
+#define WeekTosec 7*24*3600
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="AlarmEntity" syncable="YES">
+        <attribute name="alarmDays" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="alarmLabel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alarmState" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="alarmType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="fireDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="identifer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="napTime" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="nextFiretime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="ringType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="soundName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="soundVolume" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="updateTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="weiboContent" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="AlarmEntity" positionX="-63" positionY="-18" width="128" height="240"/>
+    </elements>
+</model>
