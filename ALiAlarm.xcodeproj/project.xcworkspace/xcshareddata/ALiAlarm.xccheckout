@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>5E253524-6370-4A58-847E-D96EB14A1505</string>
+	<string>E99A429E-0174-4074-9255-B1D2D5B896F6</string>
 	<key>IDESourceControlProjectName</key>
 	<string>ALiAlarm</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>375B6746-3886-4AE2-B1EF-F699426160BE</key>
-		<string>https://github.com/yuanzhangjing/ALiAlarm.git</string>
+		<key>72B3F1D0-8C80-4905-A172-31F5C9B76488</key>
+		<string>ssh://github.com/yuanzhangjing/ALiAlarm.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>ALiAlarm.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>375B6746-3886-4AE2-B1EF-F699426160BE</key>
+		<key>72B3F1D0-8C80-4905-A172-31F5C9B76488</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/yuanzhangjing/ALiAlarm.git</string>
+	<string>ssh://github.com/yuanzhangjing/ALiAlarm.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>375B6746-3886-4AE2-B1EF-F699426160BE</string>
+	<string>72B3F1D0-8C80-4905-A172-31F5C9B76488</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>375B6746-3886-4AE2-B1EF-F699426160BE</string>
+			<string>72B3F1D0-8C80-4905-A172-31F5C9B76488</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ALiAlarm</string>
 		</dict>

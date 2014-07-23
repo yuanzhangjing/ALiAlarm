@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];//UIColorFromRGB(0xF7F7F7);
+    self.view.backgroundColor = [UIColor colorWithWhite:0.98 alpha:1.0];//UIColorFromRGB(0xF7F7F7);
     if (IOS7) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }

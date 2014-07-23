@@ -18,6 +18,7 @@
 #import "AppDelegate.h"
 #define Tag_TimeLabel 1001
 #define Tag_PopButton 1002
+#define Tag_SecondLabel 1003
 #define Tag_Switch 1100 //1100~1199
 #define Tag_Alert 1200 //1200~1299
 @interface HomeViewController ()<UIAlertViewDelegate>{
@@ -44,19 +45,23 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
-    self.navTitle = @"alialarm";
-    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(refreshTimeLabel) userInfo:nil repeats:YES];
-    DrawView *bgview = [[DrawView alloc] initWithFrame:CGRectMake(80, 10, 160, 160)];
-    bgview.shape = DrawShapeCircle;
+    self.navTitle = @"SuperAlarm";
+
+    [NSThread detachNewThreadSelector:@selector(startNewThread) toTarget:self withObject:nil];
+    DrawView *bgview = [[DrawView alloc] initWithFrame:CGRectMake(20, 20, 280, 100)];
+    bgview.shape = DrawShapeRect;
     bgview.myColor = UIColorFromRGBA(0x63B8FF,1.0);
-    [self.view addSubview:bgview];
+//    [self.view addSubview:bgview];
     notilabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+    notilabel.font = [UIFont systemFontOfSize:14.0f];
+    notilabel.textColor = UIColorFromRGBA(0x63B8FF,0.8);
     [self.view addSubview:notilabel];
     
     {
-        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(20,40, 280, 60)];
+        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,40, 280, 60)];
         timeLabel.font = [UIFont systemFontOfSize:50];
         timeLabel.backgroundColor = [UIColor clearColor];
+        timeLabel.textColor = UIColorFromRGBA(0x4169E1,1.0);
         timeLabel.textAlignment = NSTextAlignmentCenter;
         timeLabel.tag = Tag_TimeLabel;
         int hour = [[NSDate date] hour];
@@ -65,16 +70,17 @@
         [self.view addSubview:timeLabel];
     }
     {
-        UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(40,110, 280, 30)];
-        tempLabel.font = [UIFont systemFontOfSize:16.0f];
-        tempLabel.backgroundColor = [UIColor clearColor];
-        tempLabel.textAlignment = NSTextAlignmentCenter;
-        tempLabel.text=@"23℃~32℃";
-        [self.view addSubview:tempLabel];
+        UILabel *secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(200,70, 40, 30)];
+        secondLabel.font = [UIFont systemFontOfSize:16.0f];
+        secondLabel.backgroundColor = [UIColor clearColor];
+        secondLabel.textColor = UIColorFromRGBA(0x4169E1,1.0);
+        secondLabel.textAlignment = NSTextAlignmentCenter;
+        secondLabel.tag=Tag_SecondLabel;
+        [self.view addSubview:secondLabel];
     }
     records = [myCoreData queryAllDataBeans];
     {
-        _subTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 180, 320, CONTENT_VIEW_HEIGHT-180-50)];
+        _subTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 120, 320, CONTENT_VIEW_HEIGHT-120-50)];
         _subTableView.delegate = self;
         _subTableView.dataSource = self;
         [_subTableView setTableFooterView:[[UIView alloc] init]];
@@ -131,13 +137,27 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)startNewThread{
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(refreshTimeLabel) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] run];
+}
 -(void)refreshTimeLabel{
+    int hour = [[NSDate date] hour];
+    int minute = [[NSDate date] minute];
+    int second = [[NSDate date] second];
+
     notilabel.text = [NSString stringWithFormat:@"当前通知总数为:%d个",[[UIApplication sharedApplication] scheduledLocalNotifications].count];
     notilabel.textAlignment = NSTextAlignmentCenter;
     UILabel *label = (UILabel*)[self.view viewWithTag:Tag_TimeLabel];
-    int hour = [[NSDate date] hour];
-    int minute = [[NSDate date] minute];
     label.text = [NSString stringWithFormat:@"%02d:%02d",hour,minute];
+    label = (UILabel*)[self.view viewWithTag:Tag_SecondLabel];
+    if (second%2==0) {
+        label.text = [NSString stringWithFormat:@":%02d",second];
+    }else{
+        label.text = [NSString stringWithFormat:@" %02d",second];
+    }
+    
 }
 -(void)pop:(UIButton*)button{
     if (button.selected) {
@@ -270,8 +290,8 @@
 	}else{
         [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     }
-    cell.contentView.backgroundColor = [UIColor whiteColor];
     DataBean *bean = [records objectAtIndex:indexPath.row];
+    cell.contentView.backgroundColor = [UIColor clearColor];
     {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 8, 30, 30)];
         label.backgroundColor = [UIColor clearColor];
@@ -344,7 +364,11 @@
     [mswitch addTarget:self action:@selector(changeSwitch:) forControlEvents:UIControlEventValueChanged];
 //    [cell.contentView addSubview:mswitch];
     cell.accessoryView = mswitch;
-    
+    if(bean.alarmState.boolValue){
+        cell.backgroundColor = UIColorFromRGBA(0xfcfcfc, 0.8);
+    }else{
+        cell.backgroundColor = UIColorFromRGBA(0xf4f4f4, 0.8);
+    }
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
     cell.selectedBackgroundView.backgroundColor = UIColorFromRGBA(0x63B8FF, 1.0f);
     return cell;

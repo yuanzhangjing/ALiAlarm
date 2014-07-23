@@ -29,6 +29,11 @@
         _myColor = [UIColor blackColor];
     }
     switch (_shape) {
+        case DrawShapeRect:{
+            CGContextRef context = UIGraphicsGetCurrentContext();
+            CGContextSetFillColorWithColor(context, _myColor.CGColor);
+            CGContextFillRect(context, rect);
+        }
         case DrawShapeCircle:{
             // Drawing code
             CGContextRef context = UIGraphicsGetCurrentContext();
